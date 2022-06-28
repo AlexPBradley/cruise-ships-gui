@@ -11,6 +11,7 @@ describe('ship', () => {
 
         expect(cruise).toBeInstanceOf(Object);
         expect(cruise.currentPort).toBe(itinerary.ports[0]);
+        expect(dover.ships).toContain(cruise);
     });
 });
 
@@ -24,7 +25,8 @@ describe('setSail', () => {
         cruise.setSail();
 
         expect(cruise.currentPort).toBeFalsy();
-        expect(cruise.previousPort).toBe(itinerary.ports[0]);
+        expect(cruise.previousPort).toBe(dover);
+        expect(dover.ships).not.toContain(cruise);
     });
 });
 
@@ -38,7 +40,8 @@ describe('dock', () => {
         cruise.setSail();
         cruise.dock();
 
-        expect(cruise.currentPort).toBe(itinerary.ports[1]);
+        expect(cruise.currentPort).toBe(calais);
+        expect(calais.ships).toContain(cruise);
     });
 });
 
