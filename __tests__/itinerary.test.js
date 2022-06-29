@@ -1,15 +1,13 @@
 /* globals describe it expect */
 const Itinerary = require('../src/itinerary');
-const Ship = require('../src/ship');
-const Port = require('../src/port');
 
-describe('', () => {
-    it('', () => {
-        const Dover = new Port('Dover');
-        const Calais = new Port('Calais');
+describe('itinerary', () => {
+    it('can have ports', () => {
+        const testShip1 = jest.fn();
+        const testShip2 = jest.fn();
 
-        const itinerary = new Itinerary([Dover, Calais]);
+        const itinerary = new Itinerary([testShip1, testShip2]);
 
-        expect(itinerary.ports).toEqual([Dover, Calais]);
+        expect(itinerary.ports).toEqual([testShip1, testShip2]);
     });
 });

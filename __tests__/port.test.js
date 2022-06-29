@@ -1,33 +1,37 @@
 /* globals describe it expect */
 const Port = require('../src/port');
-const Ship = require('../src/ship');
 
 describe('port', () => {
-    it('set port', () => {
-        const Dover = new Port('Dover');
+    describe('add and remove ships', () => {
 
-        expect(Dover.name).toBe('Dover');
-    });
+    
+        let testPort;
+        let testShip1;
+        let testShip2;
+    
+        beforeEach(() => {
+            testPort = new Port('testPort');
+            testShip1 = jest.fn();
+            testShip2 = jest.fn();
+        });
 
-    it('can add ships', () => {
-        const dover = new Port('Dover');
-        const cruise = {};
-
-        dover.addShip(cruise);
-
-        expect(dover.ships).toContain(cruise);
-    });
-
-    it('can remove ships', () => {
-        const dover = new Port('Dover');
-        const titanic = {};
-        const queenMary = {};
-
-        dover.addShip(titanic);
-        dover.addShip(queenMary);
-        dover.removeShip(queenMary);
-
-        expect(dover.ships).toEqual([titanic]);
-
+        it('set port', () => {
+            expect(testPort.name).toBe('testPort');
+        });
+    
+        it('can add ships', () => {
+            testPort.addShip(testShip1);
+        
+            expect(testPort.ships).toContain(testShip1);
+        });
+    
+        it('can remove ships', () => {    
+            testPort.addShip(testShip1);
+            testPort.addShip(testShip2);
+            testPort.removeShip(testShip2);
+        
+            expect(testPort.ships).toEqual([testShip1]);
+        
+        });
     });
 });
