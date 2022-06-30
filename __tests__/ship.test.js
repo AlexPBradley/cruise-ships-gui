@@ -12,24 +12,33 @@ describe('ship', () => {
         let itinerary;
         
         beforeEach(() => {
-            dover = new Port('Dover');
-            calais = new Port('Calais');
+            dover = {
+                addShip: jest.fn(),
+                removeShip: jest.fn(),
+                name: 'Dover',
+                ships: []
+            };
+            calais = {
+                addShip: jest.fn(),
+                removeShip: jest.fn(),
+                name: 'Calais',
+                ships: []
+            };
             itinerary = new Itinerary([dover, calais]);
             cruise = new Ship(itinerary);
         });
         
-        it('startig point', () => {
+        it('gets added to port on instantiation', () => {
             expect(cruise).toBeInstanceOf(Object);
             expect(cruise.currentPort).toBe(itinerary.ports[0]);
-            expect(dover.ships).toContain(cruise);
+            expect(dover.addShip).toHaveBeenCalledWith(cruise);
         });
 
         it('can set sail', () => {
             cruise.setSail();
             
             expect(cruise.currentPort).toBeFalsy();
-            expect(cruise.previousPort).toBe(dover);
-            expect(dover.ships).not.toContain(cruise);
+            expect(dover.removeShip).toHaveBeenCalledWith(cruise);
         });
 
         it('can dock at different port', () => {
@@ -37,7 +46,7 @@ describe('ship', () => {
             cruise.dock();
             
             expect(cruise.currentPort).toBe(calais);
-            expect(calais.ships).toContain(cruise);
+            expect(calais.addShip).toHaveBeenCalledWith(cruise);
         });
         
         it('test there are no more docks', () => {
