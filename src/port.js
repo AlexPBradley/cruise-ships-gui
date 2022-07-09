@@ -1,5 +1,3 @@
-const Ship = require("./ship");
-
 function Port(setPort){
     this.name = setPort;
     this.ships = [];
